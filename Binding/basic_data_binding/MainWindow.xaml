@@ -6,7 +6,43 @@
         xmlns:local="clr-namespace:basic_data_binding"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+
+    <Window.Resources>
+        <local:Nicknames x:Key="names">
+            <local:Nickname Name="멀티" Nick="multi" />
+            <local:Nickname Name="미디어" Nick="media" />
+        </local:Nicknames>
+
+        <Style x:Key="myStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+        </Style>
+
+    </Window.Resources>
+    
+    <DockPanel x:Name="dockPanel" DataContext="{StaticResource names}">
+        <TextBlock DockPanel.Dock="Top">
+            <TextBlock Style="{StaticResource myStyle}">Name : </TextBlock>
+            <TextBox Text="{Binding Path=Name}" />
+            <TextBlock Style="{StaticResource myStyle}">Nick :  </TextBlock>
+            <TextBox Text="{Binding Nick}" />
+        </TextBlock>
+        <Button DockPanel.Dock="Right">X</Button>
+        <ListBox
+            ItemsSource="{Binding}"
+            IsSynchronizedWithCurrentItem="True">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Nick}" />
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+        </ListBox>
+    </DockPanel>
 </Window>
